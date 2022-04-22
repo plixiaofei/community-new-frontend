@@ -2,6 +2,10 @@ export const getIcon = (icon) => {
     return 'http://localhost:8080/user/avatar/' + icon.split('avatar/')[1]
 }
 
+export const getQuestionCallBack = (img) => {
+    return 'http://localhost:8080/questionImg/' + img.split('questionImg/')[1]
+}
+
 export const formatTime = (date) => {
     // 参数是后台返回的Object对象，不是字符串
     // Object对象转为日期格式

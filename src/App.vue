@@ -4,11 +4,14 @@
       <el-header class="header">
         <TopNav />
       </el-header>
-
-        <el-main>
-          <router-view/>
-        </el-main>
-
+        <el-container>
+          <el-aside width="250px" class="left-nav">
+            <LeftNav />
+          </el-aside>
+          <el-main>
+            <router-view />
+          </el-main>
+        </el-container>
       <el-footer>
         <Footer/>
       </el-footer>
@@ -58,6 +61,9 @@ nav a.router-link-exact-active {
   width: 100%;
 }
 
+.left-nav {
+  margin: 50px 10px
+}
 </style>
 <script>
 import TopNav from "@/components/TopNav";

@@ -1,6 +1,5 @@
 import axios from "axios";
 import {ElMessage} from "element-plus";
-import {assertSourceType} from "@babel/core/lib/config/validation/option-assertions";
 
 // 创建 axios 配置
 const config = {
@@ -28,6 +27,14 @@ service.interceptors.response.use(response => {
     } else {
         return response
     }
+})
+
+service.interceptors.request.use(request => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        request.headers.Authorization = token;
+    }
+    return request
 })
 
 // 包装，get 方法 params 只能写到 config

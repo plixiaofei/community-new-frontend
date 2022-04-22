@@ -26,7 +26,7 @@
       </el-row>
     </div>
     <div class="question-detail-fullDescription">
-      {{ detailedQuestion.data.fullDescription }}
+      <v-md-preview :text="detailedQuestion.data.fullDescription" />
     </div>
   </el-card>
 </template>

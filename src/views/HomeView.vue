@@ -1,10 +1,6 @@
 <template>
   <div class="home">
     <el-container class="container">
-      <el-aside>
-        <LeftNav />
-      </el-aside>
-
       <el-main>
         <ContentView />
       </el-main>

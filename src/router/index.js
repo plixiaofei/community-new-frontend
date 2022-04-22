@@ -33,6 +33,12 @@ const routes = [
     name: 'question',
     component: () => import('@/views/QuestionView.vue')
   },
+  // 左栏
+  {
+    path: '/publishQuestion',
+    name: 'publishQuestion',
+    component: () => import('@/components/leftNav/PublishQuestion.vue')
+  }
 
 ]
 

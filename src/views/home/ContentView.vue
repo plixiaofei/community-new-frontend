@@ -43,6 +43,7 @@ let userInfo = reactive({
 
 // 吐槽自己，可以在后端返回 VO 时加一列 nickName
 onMounted(async () => {
+  console.log("==")
   await listQuestion({
     curPage: 1
   }).then(async (res) => {

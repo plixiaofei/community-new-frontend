@@ -50,3 +50,15 @@ export const listUserQuestions = (params) => {
 export const searchQuestion = (params) => {
     return GET("searchQuestion", params)
 }
+
+export const publishQuestion = (data) => {
+    return POST("publishQuestion", data)
+}
+
+export const uploadImg = (data) => {
+    return POST_H("uploadImg", data, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+}
