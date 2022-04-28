@@ -1,23 +1,37 @@
 <template>
   <div class="container">
-    <div v-if="questions.data === null">
-      <el-skeleton :rows="2" animated/>
-    </div>
-    <div v-else v-for="question in questions.data">
-      <div class="question-card">
-        <div class="question-title">
-          <el-button type="text" class="question-title" @click="toDetailed(question.id)">
-            {{ question.title }}
-          </el-button>
+    <el-container style="height: 100%">
+      <el-main>
+        <div v-if="questions.data === null">
+          <el-skeleton :rows="2" animated/>
         </div>
-        <div class="question-short-description">
-          {{ question.shortDescription }}
+        <div v-else v-for="question in questions.data">
+          <div class="question-card">
+            <div class="question-title">
+              <el-button type="text" class="question-title" @click="toQuestionPage(question.id)">
+                {{ question.title }}
+              </el-button>
+            </div>
+            <div class="question-short-description">
+              {{ question.shortDescription }}
+            </div>
+            <div class="question-create-time">
+              {{ question.username }} 发布于 {{ formatTime(question.createTime) }}
+            </div>
+          </div>
         </div>
-        <div class="question-create-time">
-          {{ question.nickName }} 发布于 {{ formatTime(question.createTime) }}
+      </el-main>
+      <el-footer>
+        <div v-if="questions.count !== -1">
+          <el-pagination
+              layout="prev, pager, next"
+              :total="pages.totalCount"
+              :page-size="pages.pageSize"
+              @current-change="handleCurrentChange"
+          />
         </div>
-      </div>
-    </div>
+      </el-footer>
+    </el-container>
   </div>
 </template>
 
@@ -29,8 +43,8 @@ export default {
 
 <script setup>
 import {onMounted, reactive} from "vue";
-import {getUserInfo, listQuestion} from "@/config/api";
-import {formatTime} from "@/config/util";
+import {getQuestionCount, getUserInfo, listQuestion} from "@/config/api";
+import {formatTime, toQuestionPage} from "@/config/util";
 import router from "@/router";
 
 let questions = reactive({
@@ -41,25 +55,45 @@ let userInfo = reactive({
   data: []
 })
 
-// 吐槽自己，可以在后端返回 VO 时加一列 nickName
+let pages = reactive({
+  pageSize: 8,
+  curPage: 1,
+  totalCount: 1
+})
+
+// 吐槽自己，可以在后端返回 VO 时加一列 username
 onMounted(async () => {
-  console.log("==")
   await listQuestion({
-    curPage: 1
+    curPage: pages.curPage
   }).then(async (res) => {
     questions.data = res.data.data
     for (let i = 0; i < questions.data.length; i++) {
       await getUserInfo({
         username: questions.data[i].username
       }).then(res => {
-        questions.data[i].nickName = res.data.data.nickName
+        questions.data[i].username = res.data.data.username
       })
     }
   })
+  getQuestionCount().then(res => {
+    pages.totalCount = res.data.data
+  })
 })
 
-const toDetailed = (questionId) => {
-  router.push({name: "question", params: {questionId: questionId}})
+
+const handleCurrentChange = async (page) => {
+  await listQuestion({
+    curPage: page
+  }).then(async (res) => {
+    questions.data = res.data.data
+    for (let i = 0; i < questions.data.length; i++) {
+      await getUserInfo({
+        username: questions.data[i].username
+      }).then(res => {
+        questions.data[i].username = res.data.data.username
+      })
+    }
+  })
 }
 
 </script>
@@ -85,7 +119,4 @@ const toDetailed = (questionId) => {
   font-size: 10px;
 }
 
-.question-title-style {
-  color: black;
-}
 </style>

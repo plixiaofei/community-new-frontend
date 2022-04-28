@@ -56,7 +56,6 @@ let questionInfo = reactive({
   fullDescription: "",
 })
 watch(questionInfo, () => {
-  console.log(questionInfo.fullDescription)
 })
 
 const handleUploadImage = async (event, insertImage, files) => {
@@ -72,7 +71,6 @@ const handleUploadImage = async (event, insertImage, files) => {
     uploadForm.append("questionImg", files[0])
     await uploadImg(uploadForm).then(res => {
       imgUrl = getQuestionCallBack(res.data.data);
-      console.log(imgUrl)
     })
 
     // 此处只做示例

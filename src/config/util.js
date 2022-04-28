@@ -1,3 +1,5 @@
+import router from "@/router";
+
 export const getIcon = (icon) => {
     return 'http://localhost:8080/user/avatar/' + icon.split('avatar/')[1]
 }
@@ -23,4 +25,13 @@ export const formatTime = (date) => {
         + (minutes > 9 ? minutes : "0" + minutes) + ":"
         + (seconds > 9 ? seconds : "0" + seconds)
     return strDate;
+}
+
+export const toQuestionPage = (questionId) => {
+    router.push({name: "question", params: {questionId: questionId}}).then().catch(() => {})
+}
+
+export const toOtherUse = (username) => {
+// 其他用户, 用户名唯一
+    router.push({name: 'user', params: {username: username}}).then().catch(() => {})
 }

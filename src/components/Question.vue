@@ -12,13 +12,13 @@
           </div>
         </el-col>
         <el-col :span="4">
-          <div class="nickName">
-            <el-link @click="otherUserInfo(detailedQuestion.data.username)">
-              {{ questionUserInfo.data.nickName }}
+          <div class="username">
+            <el-link @click="toOtherUser(detailedQuestion.data.username)">
+              {{ questionUserInfo.data.username }}
             </el-link>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="8" :push="10">
           <div class="createTime">
             发布于 {{ formatTime(detailedQuestion.data.createTime) }}
           </div>
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <script setup>
-import {getIcon, formatTime} from "@/config/util";
+import {getIcon, formatTime, toOtherUser} from "@/config/util";
 import {onMounted, reactive} from "vue";
 import router from "@/router";
 import {getDetailedQuestion, getUserInfo} from "@/config/api";
@@ -47,7 +47,6 @@ const props = defineProps({
   id: ""
 })
 const questionId = props.id
-console.log(questionId)
 let detailedQuestion = reactive({
   data: ""
 })
@@ -68,10 +67,7 @@ onMounted(async () => {
   })
 })
 
-// 其他用户, 用户名唯一
-const otherUserInfo = (username) => {
-  router.push({name: 'user', params: {username: username}})
-}
+
 </script>
 
 <style scoped>
@@ -88,7 +84,7 @@ const otherUserInfo = (username) => {
   border-radius: 50%;
 }
 
-.question-detail-info-userInfo .nickName {
+.question-detail-info-userInfo .username {
   font-size: 15px;
   margin: 5px;
   text-align: left;

@@ -11,9 +11,9 @@
                         class="bigIcon">
               </el-image>
             </div>
-            <div class="nickName">
+            <div class="username">
               <h1>
-                {{ userInfo.data.nickName }}
+                {{ userInfo.data.username }}
               </h1>
             </div>
           </el-col>
@@ -29,7 +29,7 @@
               </template>
               <div v-for="curQuestion in curQuestions.data" :key="curQuestion.id">
                 <div class="question-title">
-                  <el-button type="text" class="question-title" @click="toDetailed(curQuestion.id)">
+                  <el-button type="text" class="question-title" @click="toQuestionPage(curQuestion.id)">
                     {{ curQuestion.title }}
                   </el-button>
                 </div>
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <script setup>
-import {getIcon, formatTime} from "@/config/util";
+import {getIcon, formatTime, toQuestionPage} from "@/config/util";
 import router from "@/router";
 import {onMounted, reactive} from "vue";
 import {getUserInfo, listUserQuestions} from "@/config/api";
@@ -66,7 +66,6 @@ const username = router.currentRoute.value.params
 let userInfo = reactive({
   data: ""
 })
-
 let curQuestions = reactive({
   data: ""
 })
@@ -78,10 +77,6 @@ onMounted(() => {
     curQuestions.data = res.data.data
   })
 })
-
-const toDetailed = (questionId) => {
-  router.push({name: "question", params: {questionId: questionId}})
-}
 
 </script>
 
@@ -96,7 +91,7 @@ const toDetailed = (questionId) => {
   border-radius: 50%;
 }
 
-.nickName {
+.username {
   font-size: 24px;
   line-height: 1.25;
   text-align: left;

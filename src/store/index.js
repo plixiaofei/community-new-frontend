@@ -9,7 +9,6 @@ export default createStore({
     token: "",
     userInfo: {
       username: "",
-      nickName: "",
       email: "",
       icon: "",
     }

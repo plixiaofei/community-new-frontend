@@ -8,7 +8,7 @@
           <el-aside width="250px" class="left-nav">
             <LeftNav />
           </el-aside>
-          <el-main>
+          <el-main class="main">
             <router-view />
           </el-main>
         </el-container>
@@ -52,17 +52,34 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-.header {
-  padding: 0 !important;
-}
-
 .container {
   height: 100%;
   width: 100%;
 }
 
+.header {
+  padding: 0 !important;
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+
 .left-nav {
-  margin: 50px 10px
+  margin: 50px 10px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  bottom: 0;
+}
+
+.main {
+  position: absolute;
+  left: 270px;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  overflow-y: scroll;
 }
 </style>
 <script>

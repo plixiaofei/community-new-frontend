@@ -39,8 +39,16 @@ export const listQuestion = (params) => {
     return GET("listQuestion", params)
 }
 
+export const listQuestionWithoutComment = (params) => {
+    return GET("listQuestionWithoutComment", params)
+}
+
 export const getDetailedQuestion = (params) => {
     return GET("getDetailedQuestion", params)
+}
+
+export const getQuestionCount = () => {
+    return GET("getQuestionCount", null)
 }
 
 export const listUserQuestions = (params) => {
@@ -61,4 +69,27 @@ export const uploadImg = (data) => {
             "Content-Type": "multipart/form-data"
         }
     })
+}
+
+// comment
+export const comment = (data) => {
+    return POST("comment", data)
+}
+
+export const getCommentsByQuestionId = (params) => {
+    return GET("getCommentsByQuestionId", params)
+}
+
+export const getCommentsByUsername = (params) => {
+    return GET("getCommentsByUsername", params)
+}
+
+
+// 通知
+export const getNotification = (params) => {
+    return GET("getNotification", params)
+}
+
+export const commentExists = () => {
+    return GET("commentExists", null)
 }

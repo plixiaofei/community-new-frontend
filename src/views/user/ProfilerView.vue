@@ -41,9 +41,9 @@
                 </el-form-item>
               </el-form>
             </el-popover>
-            <div v-if="showChangeArea === false" class="nickName">
+            <div v-if="showChangeArea === false" class="username">
               <h1>
-                {{ userInfo.nickName }}
+                {{ userInfo.username }}
               </h1>
               <el-button plain
                          size="large"
@@ -52,14 +52,14 @@
                 修改个人信息
               </el-button>
             </div>
-            <div v-else class="nickName">
+            <div v-else class="username">
               <el-form :model="userForm">
                 <el-form-item>
                   <p class="pTag">
                     名字
                   </p>
-                  <el-input :placeholder="userInfo.nickName"
-                            v-model="userForm.nickName"/>
+                  <el-input :placeholder="userInfo.username"
+                            v-model="userForm.username"/>
                 </el-form-item>
                 <el-form-item class="is-justify-space-between">
                   <el-button type="primary" @click="applyChange()">确认修改</el-button>
@@ -79,7 +79,7 @@
               </template>
               <div v-for="curQuestion in curQuestions.data" :key="curQuestion.id">
                 <div class="question-title">
-                  <el-button type="text" class="question-title" @click="toDetailed(curQuestion.id)">
+                  <el-button type="text" class="question-title" @click="toQuestionPage(curQuestion.id)">
                     {{ curQuestion.title }}
                   </el-button>
                 </div>
@@ -110,7 +110,7 @@ import {computed, ref, reactive, onMounted} from "vue";
 import {useStore} from "vuex";
 
 import {changeUserInfo, changeUserIcon, getUserInfo, listUserQuestions} from "@/config/api";
-import {getIcon, formatTime} from "@/config/util";
+import {getIcon, formatTime, toQuestionPage} from "@/config/util";
 import router from "@/router";
 
 const store = useStore();
@@ -128,7 +128,6 @@ const openChange = () => {
 // userForm
 let userForm = reactive({
   username: userInfo.value.username,
-  nickName: "",
 })
 
 // 提交修改
@@ -173,9 +172,6 @@ let curQuestions = reactive({
   data: ""
 })
 
-const toDetailed = (questionId) => {
-  router.push({name: "question", params: {questionId: questionId}})
-}
 
 onMounted(() => {
   listUserQuestions({
@@ -198,7 +194,7 @@ onMounted(() => {
   border-radius: 50%;
 }
 
-.nickName {
+.username {
   font-size: 24px;
   line-height: 1.25;
   text-align: left;

@@ -15,20 +15,6 @@
       <el-menu-item index="/">
         主页
       </el-menu-item>
-      <el-sub-menu index="2">
-        <template #title>资源</template>
-        <el-menu-item index="2-1">
-          主页
-        </el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
-        <el-sub-menu index="2-4">
-          <template #title>item four</template>
-          <el-menu-item index="2-4-1">item one</el-menu-item>
-          <el-menu-item index="2-4-2">item two</el-menu-item>
-          <el-menu-item index="2-4-3">item three</el-menu-item>
-        </el-sub-menu>
-      </el-sub-menu>
 
       <!--      搜索栏-->
       <div class="nav-right search"
@@ -47,7 +33,7 @@
             {{ errorMsg }}
           </div>
           <div v-else v-for="res in searchQuestions.data">
-            <el-button type="text" @click="toDetailed(res.id)">
+            <el-button type="text" @click="toQuestionPage(res.id)">
               {{ res.title }}
             </el-button>
           </div>
@@ -85,7 +71,7 @@ import {useStore} from 'vuex'
 import {computed, reactive, ref, watch} from "vue";
 import {logout, searchQuestion} from "@/config/api";
 import router from "@/router";
-import {getIcon} from "@/config/util";
+import {getIcon, toQuestionPage} from "@/config/util";
 
 const store = useStore();
 
@@ -130,9 +116,6 @@ const search = (word) => {
   })
 }
 
-const toDetailed = (questionId) => {
-  router.push({name: "question", params: {questionId: questionId}}).catch(() => {})
-}
 </script>
 
 <style scoped>
@@ -160,4 +143,5 @@ const toDetailed = (questionId) => {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 </style>

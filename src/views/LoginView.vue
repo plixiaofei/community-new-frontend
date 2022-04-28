@@ -11,10 +11,10 @@
       >
         <h1 style="color: var(--el-input-text-color,var(--el-text-color-regular)); margin-bottom: 40px">登陆</h1>
         <el-form-item>
-          <el-input v-model="formLabelAlign.username" placeholder="请输入用户名"/>
+          <el-input v-model="formLabelAlign.username" placeholder="123"/>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="formLabelAlign.password" type="password" placeholder="请输入用户密码"/>
+          <el-input v-model="formLabelAlign.password" type="password" placeholder="123"/>
         </el-form-item>
         <el-button @click="submit()"
                    type="primary"
@@ -36,8 +36,8 @@ const store = useStore();
 
 const labelPosition = ref('right')
 const formLabelAlign = reactive({
-  username: '',
-  password: '',
+  username: '123',
+  password: '123',
 })
 const submit = async () => {
   await login(formLabelAlign)
